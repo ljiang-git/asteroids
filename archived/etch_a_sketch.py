@@ -1,17 +1,14 @@
-from constants import *
 import pygame
-from ship import Ship
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
-pygame.display.set_caption("Asteroids")
+screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
 
-ship = Ship(pygame.Vector2(SCREEN_SIZE / 2, SCREEN_SIZE / 2))
-screen.fill(BACKGROUND_COLOR)
+player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+screen.fill("white")
 
 while running:
     # poll for events
@@ -19,20 +16,19 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    #pygame.draw.circle(screen, "blue", player_pos, 10)
-    ship.angle += 1
-    ship.draw(screen)
+    pygame.draw.circle(screen, "blue", player_pos, 10)
+
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        ship.turn_left(dt)
-    if keys[pygame.K_RIGHT]:
-        ship.turn_right(dt)
     if keys[pygame.K_UP]:
-        ship.power_on(dt)
-    else:
-        ship.power_off(dt)
+        player_pos.y -= 300 * dt
+    if keys[pygame.K_DOWN]:
+        player_pos.y += 300 * dt
+    if keys[pygame.K_LEFT]:
+        player_pos.x -= 300 * dt
+    if keys[pygame.K_RIGHT]:
+        player_pos.x += 300 * dt
     if keys[pygame.K_c]:
-        screen.fill(BACKGROUND_COLOR)
+        screen.fill("white")
 
     # flip() the display to put your work on screen
     pygame.display.flip()
@@ -40,5 +36,5 @@ while running:
     # limits FPS to 60
     # dt is delta time in seconds since last frame
     dt = clock.tick(60) / 1000
-
+    
 pygame.quit()
