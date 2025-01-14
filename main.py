@@ -22,7 +22,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("midnightblue")
+    screen.fill(u.BACKGROUND_COLOR)
 
     # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
     ship.draw(screen)
@@ -40,12 +40,7 @@ while running:
     ship.move(dt)
     asteroid.move(dt)
 
-    # flip() the display to put your work on screen
     pygame.display.flip()
-
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
     dt = clock.tick(60) / 1000
 
 pygame.quit()
